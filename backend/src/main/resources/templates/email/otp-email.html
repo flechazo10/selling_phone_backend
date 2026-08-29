@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; max-width: 480px; margin: auto; padding: 32px;
+                border: 1px solid #e5e7eb; border-radius: 8px;">
+
+        <h2 style="color: #111827; margin-bottom: 8px;">Mã xác nhận của bạn</h2>
+
+        <p style="color: #6b7280; margin-bottom: 24px;">
+            Nhập mã dưới đây để tiếp tục.
+            Mã có hiệu lực trong <strong th:text="${otpTtlMinutes}">5</strong> phút.
+        </p>
+
+        <div style="font-size: 36px; font-weight: bold; letter-spacing: 12px;
+                    color: #4f46e5; text-align: center; padding: 16px 0;"
+             th:text="${otp}">
+            000000
+        </div>
+
+        <p style="color: #9ca3af; font-size: 13px; margin-top: 24px;">
+            Nếu bạn không yêu cầu mã này, hãy bỏ qua email này.
+        </p>
+    </div>
+</body>
+</html>

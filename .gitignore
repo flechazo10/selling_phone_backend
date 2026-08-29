@@ -1,0 +1,64 @@
+# ========================
+# Build output
+# ========================
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# ========================
+# Maven
+# ========================
+.mvn/wrapper/maven-wrapper.jar
+
+# ========================
+# IDE - IntelliJ IDEA
+# ========================
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# ========================
+# IDE - VS Code
+# ========================
+.vscode/
+
+# ========================
+# IDE - Eclipse
+# ========================
+.classpath
+.project
+.settings/
+
+# ========================
+# Sensitive config - QUAN TRONG
+# Khong up len GitHub vi chua password DB, JWT secret, mail password
+# ========================
+src/main/resources/application.properties
+src/main/resources/application-*.properties
+src/main/resources/application.yml
+src/main/resources/application-*.yml
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/
+spring.log
+
+# ========================
+# OS files
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================
+# Temp files
+# ========================
+*.tmp
+*.temp
+*.swp
