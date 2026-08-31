@@ -93,6 +93,7 @@ Hoặc mở IntelliJ → Run `SellingPhoneApplication`.
 Server chạy tại: `http://localhost:8080` 
 
 **Tạm thời test dữ liệu với :**
+```sql
 USE sellingphone_db;
 
 INSERT INTO categories (CategoryName) VALUES 
@@ -126,4 +127,4 @@ INSERT INTO version (ProductID_FK, colour, storage, material, Price, Stock, Imag
 (1, 'Titan Tự nhiên', '512GB', 'Khung Titan, Mặt lưng kính', 34990000.00, 15, 'ip15pm_natural_512.jpg'),
 (2, 'Xám Titan', '256GB', 'Khung Titan, Mặt lưng kính', 31990000.00, 60, 's24_gray_256.jpg'),
 (2, 'Đen Titan', '512GB', 'Khung Titan, Mặt lưng kính', 36990000.00, 25, 's24_black_512.jpg');
-
+```
