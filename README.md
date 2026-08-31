@@ -84,181 +84,46 @@ docker run -d --name redis -p 6379:6379 redis:alpine
 docker start redis
 ```
 
-**Seed dữ liệu Role (chạy 1 lần trong MySQL):**
-```sql
-CREATE DATABASE IF NOT EXISTS sellingphone_db;
-USE sellingphone_db;
-
-CREATE TABLE roles (
-    role_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
-    description VARCHAR(255)
-);
-
-CREATE TABLE permissions (
-    permission_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
-    description VARCHAR(255)
-);
-
-CREATE TABLE role_permission (
-    role_id INT,
-    permission_id INT,
-    PRIMARY KEY (role_id, permission_id),
-    FOREIGN KEY (role_id) REFERENCES roles(role_id),
-    FOREIGN KEY (permission_id) REFERENCES permissions(permission_id)
-);
-
-CREATE TABLE user (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
-    role_id INT,
-    username VARCHAR(255),
-    Password VARCHAR(255),
-    email VARCHAR(255),
-    PhoneNumber VARCHAR(255),
-    gender VARCHAR(255),
-    Address TEXT,
-    CreatedAt TIMESTAMP,
-    UpdatedAt TIMESTAMP,
-    Avatar VARCHAR(255),
-    FullName VARCHAR(255),
-    status TINYINT(1) DEFAULT 1,
-    FOREIGN KEY (role_id) REFERENCES roles(role_id)
-);
-
-CREATE TABLE address (
-    addressID INT AUTO_INCREMENT PRIMARY KEY,
-    street VARCHAR(255),
-    district VARCHAR(255),
-    city VARCHAR(255),
-    is_default TINYINT(1),
-    UserID_FK INT,
-    FOREIGN KEY (UserID_FK) REFERENCES user(UserID)
-);
-
-CREATE TABLE categories (
-    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
-    CategoryName VARCHAR(255)
-);
-
-CREATE TABLE brands (
-    BrandID INT AUTO_INCREMENT PRIMARY KEY,
-    BrandName VARCHAR(255),
-    BrandLogo VARCHAR(255)
-);
-
-CREATE TABLE product (
-    ProductID INT AUTO_INCREMENT PRIMARY KEY,
-    BrandID_FK INT,
-    CategoryID_FK INT,
-    ProductName VARCHAR(255),
-    description VARCHAR(255),
-    Image VARCHAR(255),
-    status TINYINT(1) DEFAULT 1,
-    FOREIGN KEY (BrandID_FK) REFERENCES brands(BrandID),
-    FOREIGN KEY (CategoryID_FK) REFERENCES categories(CategoryID)
-);
-
-CREATE TABLE product_specification (
-    product_id INT PRIMARY KEY,
-    screen_size VARCHAR(255),
-    screen_tech VARCHAR(255),
-    rear_camera TEXT,
-    front_camera VARCHAR(255),
-    chipset VARCHAR(255),
-    ram VARCHAR(255),
-    rom VARCHAR(255),
-    battery VARCHAR(255),
-    os VARCHAR(255),
-    screen_features TEXT,
-    FOREIGN KEY (product_id) REFERENCES product(ProductID)
-);
-
-CREATE TABLE product_images (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT,
-    image_url VARCHAR(255),
-    FOREIGN KEY (product_id) REFERENCES product(ProductID)
-);
-
-CREATE TABLE version (
-    VersionID INT AUTO_INCREMENT PRIMARY KEY,
-    ProductID_FK INT,
-    colour VARCHAR(255),
-    storage VARCHAR(255),
-    material VARCHAR(255),
-    Price DECIMAL(15,2),
-    Stock INT,
-    ImageURL VARCHAR(255),
-    FOREIGN KEY (ProductID_FK) REFERENCES product(ProductID)
-);
-
-CREATE TABLE review (
-    ReviewID INT AUTO_INCREMENT PRIMARY KEY,
-    ProductID_FK INT,
-    UserID_FK INT,
-    Rating INT,
-    Comment TEXT,
-    CreatedAt DATETIME,
-    FOREIGN KEY (ProductID_FK) REFERENCES product(ProductID),
-    FOREIGN KEY (UserID_FK) REFERENCES user(UserID)
-);
-
-CREATE TABLE cart (
-    CartID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID_FK INT,
-    FOREIGN KEY (UserID_FK) REFERENCES user(UserID)
-);
-
-CREATE TABLE cartdetail (
-    CartID_FK INT,
-    VersionID_FK INT,
-    Quantity INT,
-    PRIMARY KEY (CartID_FK, VersionID_FK),
-    FOREIGN KEY (CartID_FK) REFERENCES cart(CartID),
-    FOREIGN KEY (VersionID_FK) REFERENCES version(VersionID)
-);
-
-CREATE TABLE `order` (
-    OrderID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID_FK INT,
-    Total DECIMAL(15,2),
-    status VARCHAR(255),
-    CreatedAt TIMESTAMP,
-    ReceiverName VARCHAR(255),
-    PhoneNumber VARCHAR(255),
-    ShippingAddress TEXT,
-    Note TEXT,
-    FOREIGN KEY (UserID_FK) REFERENCES user(UserID)
-);
-
-CREATE TABLE orderdetail (
-    OrderID_FK INT,
-    VersionID_FK INT,
-    Quantity INT,
-    Price DECIMAL(15,2),
-    PRIMARY KEY (OrderID_FK, VersionID_FK),
-    FOREIGN KEY (OrderID_FK) REFERENCES `order`(OrderID),
-    FOREIGN KEY (VersionID_FK) REFERENCES version(VersionID)
-);
-
-CREATE TABLE banners (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    createdAt DATETIME(6),
-    imageUrl VARCHAR(255),
-    isActive BIT(1),
-    linkUrl VARCHAR(1000),
-    updatedAt DATETIME(6)
-);
-
-INSERT INTO roles (name, description) VALUES ('USER', 'Khách hàng');
-INSERT INTO roles (name, description) VALUES ('ADMIN', 'Quản trị viên');
-```
-
 **Khởi động backend:**
 ```bash
 mvn spring-boot:run
 ```
 Hoặc mở IntelliJ → Run `SellingPhoneApplication`.
 
-Server chạy tại: `http://localhost:8080`
+Server chạy tại: `http://localhost:8080` 
+
+**Tạm thời test dữ liệu với :**
+USE sellingphone_db;
+
+INSERT INTO categories (CategoryName) VALUES 
+('Điện thoại thông minh'),
+('Máy tính bảng');
+
+INSERT INTO brands (BrandName, BrandLogo) VALUES 
+('Apple', 'apple_logo.jpg'),
+('Samsung', 'samsung_logo.jpg'),
+('Xiaomi', 'xiaomi_logo.jpg');
+
+INSERT INTO product (BrandID_FK, CategoryID_FK, ProductName, description, Image, status) VALUES 
+(1, 1, 'iPhone 15 Pro Max', 'Màn hình 6.7 inch, chip A17 Pro siêu mạnh mẽ.', 'ip15pm_main.jpg', 1),
+(2, 1, 'Samsung Galaxy S24 Ultra', 'Màn hình 6.8 inch, camera 200MP, tích hợp Galaxy AI.', 's24ultra_main.jpg', 1);
+
+INSERT INTO product_specification (product_id, screen_size, screen_tech, rear_camera, front_camera, chipset, ram, rom, battery, os, screen_features) VALUES 
+(1, '6.7 inch', 'Super Retina XDR OLED', '48MP + 12MP + 12MP', '12MP', 'Apple A17 Pro 6 nhân', '8GB', '256GB', '4422 mAh', 'iOS 17', '120Hz ProMotion, Dynamic Island'),
+(2, '6.8 inch', 'Dynamic AMOLED 2X', '200MP + 50MP + 12MP + 10MP', '12MP', 'Snapdragon 8 Gen 3', '12GB', '256GB', '5000 mAh', 'Android 14', '120Hz, HDR10+, Độ sáng 2600 nits');
+
+INSERT INTO product_images (product_id, image_url) VALUES 
+(1, 'ip15pm_goc_truoc.jpg'),
+(1, 'ip15pm_goc_sau.jpg'),
+(1, 'ip15pm_cung_hop.jpg'),
+(2, 's24ultra_goc_truoc.jpg'),
+(2, 's24ultra_mat_sau.jpg'),
+(2, 's24ultra_spen.jpg');
+
+INSERT INTO version (ProductID_FK, colour, storage, material, Price, Stock, ImageURL) VALUES 
+(1, 'Titan Tự nhiên', '256GB', 'Khung Titan, Mặt lưng kính', 29990000.00, 50, 'ip15pm_natural_256.jpg'),
+(1, 'Titan Đen', '256GB', 'Khung Titan, Mặt lưng kính', 29500000.00, 30, 'ip15pm_black_256.jpg'),
+(1, 'Titan Tự nhiên', '512GB', 'Khung Titan, Mặt lưng kính', 34990000.00, 15, 'ip15pm_natural_512.jpg'),
+(2, 'Xám Titan', '256GB', 'Khung Titan, Mặt lưng kính', 31990000.00, 60, 's24_gray_256.jpg'),
+(2, 'Đen Titan', '512GB', 'Khung Titan, Mặt lưng kính', 36990000.00, 25, 's24_black_512.jpg');
+
