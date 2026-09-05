@@ -94,37 +94,56 @@ Server chạy tại: `http://localhost:8080`
 
 **Tạm thời test dữ liệu với :**
 ```sql
-USE sellingphone_db;
+use sellingphone_db;
 
 INSERT INTO categories (CategoryName) VALUES 
-('Điện thoại thông minh'),
-('Máy tính bảng');
+('Điện thoại thông minh');
 
 INSERT INTO brands (BrandName, BrandLogo) VALUES 
-('Apple', 'apple_logo.jpg'),
-('Samsung', 'samsung_logo.jpg'),
-('Xiaomi', 'xiaomi_logo.jpg');
+('Apple', 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616886/Apple_logo_black.svg.webp'),
+('Samsung', 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616891/Samsung_old_logo_before_year_2015.svg.webp');
 
 INSERT INTO product (BrandID_FK, CategoryID_FK, ProductName, description, Image, status) VALUES 
-(1, 1, 'iPhone 15 Pro Max', 'Màn hình 6.7 inch, chip A17 Pro siêu mạnh mẽ.', 'ip15pm_main.jpg', 1),
-(2, 1, 'Samsung Galaxy S24 Ultra', 'Màn hình 6.8 inch, camera 200MP, tích hợp Galaxy AI.', 's24ultra_main.jpg', 1);
+(1, 1, 'iPhone 17 Pro Max', 'Siêu phẩm Apple 2026 với màn hình lớn hơn, chip A19 Pro và hệ thống camera nâng cấp toàn diện.', 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615024/iphone-17-pro-max_3.jpg', 1),
+(2, 1, 'Samsung Galaxy S26', 'Flagship cao cấp từ Samsung mang lại trải nghiệm mạnh mẽ với Galaxy AI thế hệ mới.', 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616002/samsung-galaxy-s26-1.webp', 1);
 
 INSERT INTO product_specification (product_id, screen_size, screen_tech, rear_camera, front_camera, chipset, ram, rom, battery, os, screen_features) VALUES 
-(1, '6.7 inch', 'Super Retina XDR OLED', '48MP + 12MP + 12MP', '12MP', 'Apple A17 Pro 6 nhân', '8GB', '256GB', '4422 mAh', 'iOS 17', '120Hz ProMotion, Dynamic Island'),
-(2, '6.8 inch', 'Dynamic AMOLED 2X', '200MP + 50MP + 12MP + 10MP', '12MP', 'Snapdragon 8 Gen 3', '12GB', '256GB', '5000 mAh', 'Android 14', '120Hz, HDR10+, Độ sáng 2600 nits');
+(1, '6.9 inch', 'LTPO Super Retina XDR OLED', '48MP + 48MP + 48MP', '24MP', 'Apple A19 Pro', '12GB', 'Lên đến 1TB', '4676 mAh', 'iOS 19', '120Hz ProMotion, Always-On display, Dynamic Island'),
+(2, '6.2 inch', 'Dynamic AMOLED 2X', '50MP + 12MP + 10MP', '12MP', 'Snapdragon 8 Gen 5 for Galaxy', '12GB', 'Lên đến 512GB', '4000 mAh', 'Android 16', '120Hz, HDR10+, Độ sáng 3000 nits');
 
 INSERT INTO product_images (product_id, image_url) VALUES 
-(1, 'ip15pm_goc_truoc.jpg'),
-(1, 'ip15pm_goc_sau.jpg'),
-(1, 'ip15pm_cung_hop.jpg'),
-(2, 's24ultra_goc_truoc.jpg'),
-(2, 's24ultra_mat_sau.jpg'),
-(2, 's24ultra_spen.jpg');
+(1, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615024/iphone-17-pro-max_3.jpg'),
+(1, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615033/iphone-17-pro-max_1_3.webp'),
+(1, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615042/iphone-17-pro-max-1_4.jpg'),
+(1, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615051/iphone-17-pro-max-2_1_1.webp'),
+(1, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615059/iphone-17-pro-max-3.webp'),
+(1, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615067/iphone-17-pro-max-4.jpg'),
+(1, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615091/iphone-17-pro-max-5.jpg'),
+(2, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616002/samsung-galaxy-s26-1.webp'),
+(2, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616007/samsung-galaxy-s26-2.webp'),
+(2, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616013/samsung-galaxy-s26-4.webp'),
+(2, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616019/samsung-galaxy-s26-8.webp'),
+(2, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616023/samsung-galaxy-s26-9.webp'),
+(2, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616027/slider-samsung-galaxy-s26-12gb-256gb.webp'),
+(2, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616031/slider-samsung-galaxy-s26-12gb-256gb-1.webp'),
+(2, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616037/slider-samsung-galaxy-s26-plus.webp'),
+(2, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616045/slider-samsung-galaxy-s26-plus-1.jpg');
 
 INSERT INTO version (ProductID_FK, colour, storage, material, Price, Stock, ImageURL) VALUES 
-(1, 'Titan Tự nhiên', '256GB', 'Khung Titan, Mặt lưng kính', 29990000.00, 50, 'ip15pm_natural_256.jpg'),
-(1, 'Titan Đen', '256GB', 'Khung Titan, Mặt lưng kính', 29500000.00, 30, 'ip15pm_black_256.jpg'),
-(1, 'Titan Tự nhiên', '512GB', 'Khung Titan, Mặt lưng kính', 34990000.00, 15, 'ip15pm_natural_512.jpg'),
-(2, 'Xám Titan', '256GB', 'Khung Titan, Mặt lưng kính', 31990000.00, 60, 's24_gray_256.jpg'),
-(2, 'Đen Titan', '512GB', 'Khung Titan, Mặt lưng kính', 36990000.00, 25, 's24_black_512.jpg');
-```
+(1, 'Xanh đậm', '256GB', 'Khung Titanium, Mặt lưng kính nhám', 34990000.00, 50, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615101/iphone-17-pro-max-1.webp'),
+(1, 'Bạc', '256GB', 'Khung Titanium, Mặt lưng kính nhám', 34990000.00, 50, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615109/iphone-17-pro-max-2.webp'),
+(1, 'Cam vũ trụ', '256GB', 'Khung Titanium, Mặt lưng kính nhám', 34990000.00, 50, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615141/iphone-17-pro-256-gb.png'),
+(1, 'Xanh đậm', '512GB', 'Khung Titanium, Mặt lưng kính nhám', 39990000.00, 30, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615101/iphone-17-pro-max-1.webp'),
+(1, 'Bạc', '512GB', 'Khung Titanium, Mặt lưng kính nhám', 39990000.00, 30, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615109/iphone-17-pro-max-2.webp'),
+(1, 'Cam vũ trụ', '512GB', 'Khung Titanium, Mặt lưng kính nhám', 39990000.00, 30, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615141/iphone-17-pro-256-gb.png'),
+(1, 'Xanh đậm', '1TB', 'Khung Titanium, Mặt lưng kính nhám', 45990000.00, 20, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615101/iphone-17-pro-max-1.webp'),
+(1, 'Bạc', '1TB', 'Khung Titanium, Mặt lưng kính nhám', 45990000.00, 20, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615109/iphone-17-pro-max-2.webp'),
+(1, 'Cam vũ trụ', '1TB', 'Khung Titanium, Mặt lưng kính nhám', 45990000.00, 20, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788615141/iphone-17-pro-256-gb.png'),
+(2, 'Tím Cobalt', '256GB', 'Khung Nhôm Armor, Mặt lưng kính', 22990000.00, 60, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616066/t%C3%ADm.webp'),
+(2, 'Đen Classic', '256GB', 'Khung Nhôm Armor, Mặt lưng kính', 22990000.00, 60, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616060/%C4%91en.webp'),
+(2, 'Xanh Sky Blue', '256GB', 'Khung Nhôm Armor, Mặt lưng kính', 22990000.00, 60, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616075/xanh_sky.webp'),
+(2, 'Trắng Classic', '256GB', 'Khung Nhôm Armor, Mặt lưng kính', 22990000.00, 60, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616070/tr%E1%BA%AFng.webp'),
+(2, 'Tím Cobalt', '512GB', 'Khung Nhôm Armor, Mặt lưng kính', 26990000.00, 40, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616066/t%C3%ADm.webp'),
+(2, 'Đen Classic', '512GB', 'Khung Nhôm Armor, Mặt lưng kính', 26990000.00, 40, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616060/%C4%91en.webp'),
+(2, 'Xanh Sky Blue', '512GB', 'Khung Nhôm Armor, Mặt lưng kính', 26990000.00, 40, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616075/xanh_sky.webp'),
+(2, 'Trắng Classic', '512GB', 'Khung Nhôm Armor, Mặt lưng kính', 26990000.00, 40, 'https://res.cloudinary.com/iukp3opy/image/upload/v1788616070/tr%E1%BA%AFng.webp');
